@@ -12,4 +12,7 @@ export class CvPreviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  download() {
+    window.print();
+  }
 }

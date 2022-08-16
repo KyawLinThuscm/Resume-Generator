@@ -11,3 +11,9 @@ mat-toolbar {
   background-color: blue;
   padding: 10px;
 }
+
+@media print {
+  button{
+    display: none;
+  }
+}

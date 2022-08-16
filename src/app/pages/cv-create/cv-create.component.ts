@@ -64,5 +64,6 @@ export class CvCreateComponent implements OnInit {
 
   onSubmit() {
     console.log("Form Submitted");
+    this.router.navigateByUrl("")
   }
 }
