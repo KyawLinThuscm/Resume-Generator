@@ -1,13 +1,36 @@
-<div [formGroup]="form" class="container">
+<div [formGroup]="form" class="personal-container">
+  <h2>Languages</h2>
 
-	<mat-form-field class="full-width" fxFlex="50%">
-		<input matInput placeholder="Name" formControlName="name">
-      <mat-error *ngIf="form.controls['name'].hasError('required')">
-        Please enter a value
-      </mat-error>
-  </mat-form-field>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" formArrayName="movies">
+    <div class="example-box" *ngFor="let movie of movies.controls; let i=index" cdkDrag>
+      <mat-card>
+        <div [formGroupName]="i">
+          <mat-form-field class="education-field" appearance="outline">
+            <mat-label>Language</mat-label>
+            <input matInput formControlName="language">
+          </mat-form-field>
+
+          <div>Level</div>
+          <mat-slider formControlName="level" (change)="updateSetting($event)" step="1" min="0" max="5" color="primary"></mat-slider>
+          <!-- <b>{{message}}</b> -->
+
+          <span *ngIf="i !== 0" class="clearfix">
+            <button type="button" mat-raised-button color="warn" (click)="remove(i)" style="float: right;">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </span>
+        </div>
+      </mat-card>
+
+    </div>
+    <div class="add-btn">
+      <button mat-raised-button type="button" (click)="add()"><i class="material-icons">add</i> Add Language</button>
+    </div>
+  </div>
 </div>
 
-<!-- Step actions -->
-<button mat-raised-button color="primary" matStepperPrevious>Previous</button>
-<button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+
+<div class="clearfix">
+  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
+  <button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+</div>

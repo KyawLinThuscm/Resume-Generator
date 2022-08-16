@@ -41,7 +41,7 @@
 
   <mat-form-field class="personal-info-text" appearance="outline">
     <mat-label>Gender</mat-label>
-    <mat-select>
+    <mat-select formControlName="gender">
       <mat-option *ngFor="let gender of genders" [value]="gender.value">
         {{gender.value}}
       </mat-option>

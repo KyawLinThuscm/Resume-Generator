@@ -20,7 +20,15 @@ export class PersonalDetailsComponent implements OnInit {
   constructor(public fb: FormBuilder) {
 
     this.form = this.fb.group({
-      name: ['']
+      name: [''],
+      email: [''],
+      phone: [''],
+      dob: [''],
+      nationality: [''],
+      religion: [''],
+      gender: [''],
+      address: [''],
+      description: ['']
     });
   }
 

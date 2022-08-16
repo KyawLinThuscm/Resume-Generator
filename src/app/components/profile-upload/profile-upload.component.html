@@ -1,13 +1,17 @@
-<div [formGroup]="form" class="container">
+<div [formGroup]="form" class="personal-container">
+  <h2>Profile</h2>
 
-	<mat-form-field class="full-width" fxFlex="50%">
-		<input matInput placeholder="Name" formControlName="name">
-      <mat-error *ngIf="form.controls['name'].hasError('required')">
-        Please enter a value
-      </mat-error>
-  </mat-form-field>
+
+  <div style="text-align: center;">
+
+    <div *ngIf="profileImage">
+      <img [src]="profileImage" class="profileimg">
+    </div>
+    <input type="file" class="profile-input" formControlName="profile" (change)="imageUpload($event)" accept="image/*">
+  </div>
 </div>
 
-<!-- Step actions -->
-<button mat-raised-button color="primary" matStepperPrevious>Previous</button>
-<button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+<div class="clearfix">
+  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
+  <button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+</div>

@@ -26,7 +26,7 @@ export class EmploymentComponent implements OnInit {
   ) {
 
     this.form = this.fb.group({
-      movies: this.fb.array([this.newMovie()],[Validators.required]),
+      movies: this.fb.array([this.newMovie()]),
     });
   }
 

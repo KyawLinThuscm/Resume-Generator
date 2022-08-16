@@ -8,17 +8,29 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class ProfileUploadComponent implements OnInit {
 
-  name!: string;
   form!: FormGroup;
+  profileImage: any;
+  imgFile: any;
 
   constructor(public fb: FormBuilder) {
 
     this.form = this.fb.group({
-      name: ['']
+      profile: [''],
     });
   }
 
   ngOnInit(): void {
+  }
+
+  imageUpload(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      this.imgFile = file;
+      const reader = new FileReader();
+      reader.onload = e => this.profileImage = reader.result;
+      reader.readAsDataURL(file);
+    }
   }
 
 }
