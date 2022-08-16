@@ -1,0 +1,62 @@
+<div [formGroup]="form" class="personal-container">
+  <h2>Employment</h2>
+
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" formArrayName="movies">
+    <div class="example-box" *ngFor="let movie of movies.controls; let i=index" cdkDrag>
+      <mat-card>
+        <div [formGroupName]="i">
+          <div class="clearfix">
+            <mat-form-field class="education-date-left" appearance="outline">
+              <mat-label>Position</mat-label>
+              <input matInput formControlName="task">
+            </mat-form-field>
+
+            <mat-form-field class="education-date-right" appearance="outline">
+              <mat-label>Company</mat-label>
+              <input matInput formControlName="task">
+            </mat-form-field>
+          </div>
+
+          <div class="clearfix">
+            <mat-form-field class="education-date-left" appearance="outline">
+              <mat-label>Start Date</mat-label>
+              <input matInput (dateInput)="OnDateChange($event.value)" [matDatepicker]="picker1"
+                formControlName="startdate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="education-date-right" appearance="outline">
+              <mat-label>End Date</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="enddate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="education-field" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+
+          <span *ngIf="i !== 0" class="clearfix">
+            <button type="button" mat-raised-button color="warn" (click)="remove(i)" style="float: right;">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </span>
+        </div>
+      </mat-card>
+
+    </div>
+    <div class="add-btn">
+      <button mat-raised-button type="button" (click)="add()"><i class="material-icons">add</i> Add Education</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="clearfix">
+  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
+<button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+</div>
+

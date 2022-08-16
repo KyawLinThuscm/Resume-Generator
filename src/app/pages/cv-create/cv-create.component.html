@@ -1,0 +1,39 @@
+<div class="login-container">
+  <mat-card>
+    <form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
+      <mat-stepper #stepper>
+        <mat-step [stepControl]="step1?.get([0])!" label="Personal Details">
+          <app-personal-details></app-personal-details>
+        </mat-step>
+
+        <mat-step [stepControl]="step2?.get([0])!" label="Education">
+          <app-education></app-education>
+        </mat-step>
+
+        <mat-step [stepControl]="step3?.get([0])!" label="Employment">
+          <app-employment></app-employment>
+        </mat-step>
+
+        <mat-step [stepControl]="step4?.get([0])!" label="Skills">
+          <app-skills></app-skills>
+        </mat-step>
+
+        <mat-step [stepControl]="step5?.get([0])!" label="Languages">
+          <app-languages></app-languages>
+        </mat-step>
+
+        <mat-step [stepControl]="step6?.get([0])!" label="Profile">
+          <app-profile-upload></app-profile-upload>
+        </mat-step>
+
+        <mat-step label="Done">
+          <p>You are now done.</p>
+          <div>
+            <button mat-raised-button matStepperPrevious color="primary">Back</button>
+            <button type="submit" mat-raised-button class="create-btn">Create</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,61 @@
+<div [formGroup]="form" class="personal-container">
+  <h2>Personal Details</h2>
+  <div class="clearfix">
+    <mat-form-field class="personal-info-left" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="personal-info-right" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+  </div>
+
+  <div class="clearfix">
+    <mat-form-field class="personal-info-left" appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field class="personal-info-right" appearance="outline">
+      <mat-label>Date of Birth</mat-label>
+      <input (dateInput)="OnDateChange($event.value)" matInput [matDatepicker]="picker" [max]="today"
+        placeholder="Choose Date" formControlName="dob">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="clearfix">
+    <mat-form-field class="personal-info-left" appearance="outline">
+      <mat-label>Nationality</mat-label>
+      <input matInput formControlName="nationality">
+    </mat-form-field>
+
+    <mat-form-field class="personal-info-right" appearance="outline">
+      <mat-label>Religion</mat-label>
+      <input matInput formControlName="religion">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="personal-info-text" appearance="outline">
+    <mat-label>Gender</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+        {{gender.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="personal-info-text" appearance="outline">
+    <mat-label>Address</mat-label>
+    <textarea matInput formControlName="address"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="personal-info-text" appearance="outline">
+    <mat-label>Describe Yourself</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" style="float: right;" matStepperNext>Next</button>

@@ -1,0 +1,33 @@
+.personal-container{
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+  }
+  .personal-info-text {
+    display: block;
+    width: 100%;
+  }
+
+  .personal-info-left {
+    width: 48%;
+    float: left;
+  }
+
+  .personal-info-right {
+    width: 48%;
+    float: right;
+  }
+
+  .clearfix::after,
+  .clearfix::before {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
