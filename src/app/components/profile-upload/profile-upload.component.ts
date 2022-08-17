@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-
+import { CvServiceService } from 'src/app/sevices/cv-service.service';
 @Component({
   selector: 'app-profile-upload',
   templateUrl: './profile-upload.component.html',
@@ -8,18 +8,23 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class ProfileUploadComponent implements OnInit {
 
-  form!: FormGroup;
   profileImage: any;
   imgFile: any;
 
-  constructor(public fb: FormBuilder) {
+  @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
 
-    this.form = this.fb.group({
-      profile: [''],
-    });
-  }
+  constructor(
+    public fb: FormBuilder,
+    public cvService: CvServiceService
+  ) {}
 
   ngOnInit(): void {
+    const data = {
+      childName: 'profileForm',
+      form: this.cvService.profileForm
+    }
+
+    this.onInitEvent.emit(data);
   }
 
   imageUpload(event: any) {

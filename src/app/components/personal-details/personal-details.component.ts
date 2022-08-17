@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-
+import { CvServiceService } from 'src/app/sevices/cv-service.service';
 @Component({
   selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class PersonalDetailsComponent implements OnInit {
 
-  form!: FormGroup;
+  // personalForm!: FormGroup;
   genders = [
     { value: 'Male' },
     { value: 'Female' }
@@ -18,24 +18,27 @@ export class PersonalDetailsComponent implements OnInit {
 
   @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public fb: FormBuilder) { }
+  constructor(
+    public fb: FormBuilder,
+    public cvService: CvServiceService
+  ) { }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      name: [''],
-      email: [''],
-      phone: [''],
-      dob: [''],
-      nationality: [''],
-      religion: [''],
-      gender: [''],
-      address: [''],
-      description: ['']
-    });
+    // this.personalForm = this.fb.group({
+    //   name: [''],
+    //   email: [''],
+    //   phone: [''],
+    //   dob: [''],
+    //   nationality: [''],
+    //   religion: [''],
+    //   gender: [''],
+    //   address: [''],
+    //   description: ['']
+    // });
 
     const data = {
       childName: 'personDetail',
-      form: this.form
+      form: this.cvService.personalForm
     }
 
     this.onInitEvent.emit(data);

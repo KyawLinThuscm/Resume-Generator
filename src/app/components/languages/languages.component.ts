@@ -1,32 +1,28 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { CvServiceService } from 'src/app/sevices/cv-service.service';
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.scss']
 })
 export class LanguagesComponent implements OnInit {
-
-  name!: string;
-  form!: FormGroup;
   gridsize: number = 1;
   message: string = "Make A Choice";
 
+  @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(
     public fb: FormBuilder,
-    public router: Router
-  ) {
-    this.form = this.fb.group({
-      movies: this.fb.array([this.newMovie()]),
-    });
-  }
+    public router: Router,
+    public cvService: CvServiceService
+  ) {}
 
 
   get movies(): FormArray {
-    return this.form.get("movies") as FormArray
+    return this.cvService.languagesForm.get("movies") as FormArray
   }
 
   newMovie(): FormGroup {
@@ -37,7 +33,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const formArr = this.form.get('movies') as FormArray;
+    const formArr = this.cvService.languagesForm.get('movies') as FormArray;
     const from = event.previousIndex;
     const to = event.currentIndex;
     this.moveItemInFormArray(formArr, from, to)
@@ -61,6 +57,12 @@ export class LanguagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const data = {
+      childName: 'languagesForm',
+      form: this.cvService.languagesForm
+    }
+
+    this.onInitEvent.emit(data);
   }
 
   add() {

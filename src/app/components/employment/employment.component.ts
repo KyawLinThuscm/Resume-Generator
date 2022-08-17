@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { CvServiceService } from 'src/app/sevices/cv-service.service';
 
 @Component({
   selector: 'app-employment',
@@ -10,28 +11,23 @@ import { Router } from '@angular/router';
 })
 export class EmploymentComponent implements OnInit {
 
-  name!: string;
-  form!: FormGroup;
   pickDate: any;
-
   statuss = [
     { viewValue: 'New' },
     { viewValue: 'Progress' },
     { viewValue: 'Done' },
   ];
 
+  @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(
     public fb: FormBuilder,
-    public router: Router
-  ) {
-
-    this.form = this.fb.group({
-      movies: this.fb.array([this.newMovie()]),
-    });
-  }
+    public router: Router,
+    public cvService: CvServiceService
+  ) {}
 
   get movies(): FormArray {
-    return this.form.get("movies") as FormArray
+    return this.cvService.employmentForm.get("movies") as FormArray
   }
 
   newMovie(): FormGroup {
@@ -44,7 +40,7 @@ export class EmploymentComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const formArr = this.form.get('movies') as FormArray;
+    const formArr = this.cvService.employmentForm.get('movies') as FormArray;
     const from = event.previousIndex;
     const to = event.currentIndex;
     this.moveItemInFormArray(formArr, from, to)
@@ -68,6 +64,12 @@ export class EmploymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const data = {
+      childName: 'employmentForm',
+      form: this.cvService.employmentForm
+    }
+
+    this.onInitEvent.emit(data);
   }
 
   add() {
