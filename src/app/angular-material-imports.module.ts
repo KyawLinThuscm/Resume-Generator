@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -53,7 +54,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatNativeDateModule,
     MatGridListModule,
     MatStepperModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressBarModule
   ]
 })
 export class AngularMaterialImportsModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -8,17 +8,19 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class PersonalDetailsComponent implements OnInit {
 
-  name!: string;
   form!: FormGroup;
-  genders= [
+  genders = [
     { value: 'Male' },
     { value: 'Female' }
   ]
   pickDate: any;
   today = new Date();
 
-  constructor(public fb: FormBuilder) {
+  @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
 
+  constructor(public fb: FormBuilder) { }
+
+  ngOnInit(): void {
     this.form = this.fb.group({
       name: [''],
       email: [''],
@@ -30,12 +32,18 @@ export class PersonalDetailsComponent implements OnInit {
       address: [''],
       description: ['']
     });
+
+    const data = {
+      childName: 'personDetail',
+      form: this.form
+    }
+
+    this.onInitEvent.emit(data);
   }
 
-  ngOnInit(): void {
-  }
 
   OnDateChange(event: any) {
     this.pickDate = event;
   }
+
 }

@@ -30,10 +30,17 @@ export class CvCreateComponent implements OnInit {
     public fb: FormBuilder
   ) {
     this.cvForm = this.fb.group({
-      name: [''],
-
+      personalDetail: this.personalDetail,
+      educationComponent: this.educationComponent,
+      employmentComponent: this.employmentComponent,
+      skillsComponent: this.skillsComponent,
+      languagesComponent: this.languagesComponent,
+      profileUpload: this.profileUpload
     });
   }
+
+  msgOnChildCompInit: any;
+  msgOnButtonClick!: string;
 
   get step1(): AbstractControl | null {
     return this.personalDetail ? this.personalDetail.form : null;
@@ -64,6 +71,19 @@ export class CvCreateComponent implements OnInit {
 
   onSubmit() {
     console.log("Form Submitted");
-    this.router.navigateByUrl("")
+    console.log('form', this.cvForm);
+    // this.router.navigateByUrl("")
+  }
+
+  receiveAutoMsgHandler(p: any) {
+    console.log('p', p);
+    console.log('cvForm', this.cvForm);
+    if (p.childName === 'personDetail') {
+      this.cvForm.controls['personalDetail'] = p.form
+    }
+    // this.msgOnChildCompInit = p;
+    // const pd = this.msgOnChildCompInit
+    // JSON.stringify(this.msgOnChildCompInit)
+    console.log(this.cvForm)
   }
 }

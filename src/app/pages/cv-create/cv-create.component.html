@@ -3,7 +3,7 @@
     <form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
       <mat-stepper #stepper>
         <mat-step [stepControl]="step1?.get([0])!" label="Personal Details">
-          <app-personal-details></app-personal-details>
+          <app-personal-details (onInitEvent)="receiveAutoMsgHandler($event)"></app-personal-details>
         </mat-step>
 
         <mat-step [stepControl]="step2?.get([0])!" label="Education">
@@ -33,10 +33,12 @@
             <button type="submit" mat-raised-button class="create-btn" color="primary">Create</button>
           </div>
           <div class="clearfix">
-            <button mat-raised-button style="float: left;" matStepperPrevious color="primary">Back</button>
+            <button type="button" mat-raised-button style="float: left;" matStepperPrevious color="primary">Back</button>
           </div>
         </mat-step>
       </mat-stepper>
     </form>
   </mat-card>
 </div>
+<pre>{{msgOnChildCompInit}}</pre>
+<pre>{{msgOnButtonClick}}</pre>

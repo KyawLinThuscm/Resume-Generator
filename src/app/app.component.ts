@@ -7,10 +7,16 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'Resume-Generator';
+  public showHeader = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
+        if (this.router.url === '/preview/undefined' ) {
+          this.showHeader = false;
+        } else {
+          this.showHeader = true;
+        }
         if(this.router.url === '/') {
           this.router.navigate(['']);
         }
