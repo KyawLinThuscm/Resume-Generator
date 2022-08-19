@@ -1,6 +1,6 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CvServiceService } from 'src/app/sevices/cv-service.service';
 @Component({
@@ -10,15 +10,22 @@ import { CvServiceService } from 'src/app/sevices/cv-service.service';
 })
 export class CvCreateComponent implements OnInit {
 
+  toggleButton: Boolean = true;
+
   constructor(
     public router: Router,
     public fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     public cvService: CvServiceService
   ) {}
 
   msgOnChildCompInit: any;
 
   ngOnInit(): void {
+    let paramId =this.activatedRoute.snapshot.paramMap.get("id");
+    if (this.router.url.indexOf('/edit-cv/') !== -1 && paramId !== undefined) {
+      this.toggleButton = false;
+    }
   }
 
   onSubmit() {

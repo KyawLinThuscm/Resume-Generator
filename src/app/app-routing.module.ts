@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-cv/:id',
-    component: CvEditComponent
+    component: CvCreateComponent
   },
   {
     path: 'preview/:id',

@@ -8,7 +8,6 @@ import { CvServiceService } from 'src/app/sevices/cv-service.service';
 })
 export class PersonalDetailsComponent implements OnInit {
 
-  // personalForm!: FormGroup;
   genders = [
     { value: 'Male' },
     { value: 'Female' }
@@ -24,18 +23,6 @@ export class PersonalDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.personalForm = this.fb.group({
-    //   name: [''],
-    //   email: [''],
-    //   phone: [''],
-    //   dob: [''],
-    //   nationality: [''],
-    //   religion: [''],
-    //   gender: [''],
-    //   address: [''],
-    //   description: ['']
-    // });
-
     const data = {
       childName: 'personDetail',
       form: this.cvService.personalForm

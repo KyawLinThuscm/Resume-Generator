@@ -30,7 +30,8 @@
           <div style="text-align: center" class="personal-container">
             <h2>Done</h2>
             <p>You are now done. <br> Click create to continue or Click back to edit. </p>
-            <button type="submit" mat-raised-button class="create-btn" color="primary">Create</button>
+            <button type="submit" mat-raised-button class="create-btn" color="primary">
+              {{toggleButton === true ? 'Create' : 'Update'}}</button>
           </div>
           <div class="clearfix">
             <button type="button" mat-raised-button style="float: left;" matStepperPrevious color="primary">Back</button>
