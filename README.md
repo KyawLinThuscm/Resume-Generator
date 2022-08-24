@@ -1,27 +1,40 @@
-# MyApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
+# Resume Generator
 
-## Development server
+Resume Generator with Angular Material UI and NodeJS API
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+![Logo](https://www.davidguida.net/assets/uploads/2014/09/angularjs.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Run Locally
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Clone the project
 
-## Running unit tests
+```bash
+  git clone https://github.com/KyawLinThuscm/Resume-Generator.git
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Go to the project directory
 
-## Running end-to-end tests
+```bash
+  cd my-project
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Install dependencies
 
-## Further help
+```bash
+  npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Start the server
+
+```bash
+  ng serve
+```
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at kyawlinnthu1999@gmail.com
+
