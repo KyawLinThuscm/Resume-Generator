@@ -25,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -55,7 +56,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatGridListModule,
     MatStepperModule,
     MatSliderModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSlideToggleModule
   ]
 })
 export class AngularMaterialImportsModule { }

@@ -10,9 +10,17 @@
             <input matInput formControlName="skill">
           </mat-form-field>
 
-          <div>Level</div>
-          <mat-slider formControlName="level" (change)="updateSetting($event)" step="1" min="0" max="5" color="primary"></mat-slider>
+          <!-- <div>Level</div>
+          <mat-slider formControlName="level" (change)="updateSetting($event)" step="1" min="0" max="5" color="primary"></mat-slider> -->
           <!-- <b>{{message}}</b> -->
+          <mat-form-field class="education-field" appearance="outline">
+            <mat-label>Level</mat-label>
+            <mat-select formControlName="level">
+              <mat-option *ngFor="let level of levels" [value]="level.value">
+                {{level.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <span *ngIf="i !== 0" class="clearfix">
             <button type="button" mat-raised-button color="warn" (click)="remove(i)" style="float: right;">
@@ -31,6 +39,6 @@
 
 
 <div class="clearfix">
-  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
-  <button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+  <button mat-raised-button color="primary" type="button" style="float: left;" matStepperPrevious>Previous</button>
+  <button mat-raised-button color="primary" type="button" class="stepper-next" matStepperNext>Next</button>
 </div>

@@ -7,12 +7,12 @@
         <div [formGroupName]="i">
           <mat-form-field class="education-field" appearance="outline">
             <mat-label>Education</mat-label>
-            <input matInput formControlName="task">
+            <input matInput formControlName="education">
           </mat-form-field>
 
           <mat-form-field class="education-field" appearance="outline">
             <mat-label>School/University</mat-label>
-            <input matInput formControlName="task">
+            <input matInput formControlName="school">
           </mat-form-field>
 
           <div class="clearfix">
@@ -54,6 +54,6 @@
 
 
 <div class="clearfix">
-  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
-<button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+  <button mat-raised-button color="primary" type="button" style="float: left;" matStepperPrevious>Previous</button>
+  <button mat-raised-button color="primary" type="button" class="stepper-next" matStepperNext>Next</button>
 </div>

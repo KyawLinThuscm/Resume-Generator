@@ -12,6 +12,10 @@ mat-toolbar {
   padding: 10px;
 }
 
+mat-slide-toggle {
+  color: white;
+}
+
 @media print {
   button{
     display: none;

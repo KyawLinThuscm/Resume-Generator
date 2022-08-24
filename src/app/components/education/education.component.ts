@@ -32,7 +32,8 @@ export class EducationComponent implements OnInit {
 
   newMovie(): FormGroup {
     return this.fb.group({
-      task:  [''],
+      education:  [''],
+      school: [''],
       startdate:  [''],
       enddate:  [''],
       description: [''],

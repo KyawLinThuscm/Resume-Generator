@@ -18,6 +18,7 @@ import { EmploymentComponent } from './components/employment/employment.componen
 import { LanguagesComponent } from './components/languages/languages.component';
 import { SkillsComponent } from './components/skills/skills.component';
 import { ProfileUploadComponent } from './components/profile-upload/profile-upload.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ProfileUploadComponent } from './components/profile-upload/profile-uplo
     BrowserAnimationsModule,
     AngularMaterialImportsModule,
     MatDatepickerModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

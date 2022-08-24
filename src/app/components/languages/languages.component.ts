@@ -11,6 +11,12 @@ import { CvServiceService } from 'src/app/sevices/cv-service.service';
 export class LanguagesComponent implements OnInit {
   gridsize: number = 1;
   message: string = "Make A Choice";
+  levels = [
+    { value: 'Beginner' },
+    { value: 'Normal' },
+    { value: 'Good' },
+    { value: 'Excellent' }
+  ]
 
   @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
 

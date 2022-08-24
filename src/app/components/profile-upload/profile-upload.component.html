@@ -1,4 +1,4 @@
-<div [formGroup]="cvService.profileForm" class="personal-container">
+<div [formGroup]="cvService.profileForm" class="personal-container" enctype="multipart/form-data">
   <h2>Profile</h2>
 
 
@@ -7,11 +7,11 @@
     <div *ngIf="profileImage">
       <img [src]="profileImage" class="profileimg">
     </div>
-    <input type="file" class="profile-input" formControlName="profile" (change)="imageUpload($event)" accept="image/*">
+    <input type="file" class="profile-input" formControlName="profile"  (change)="imageUpload($event)" accept="image/*">
   </div>
 </div>
 
 <div class="clearfix">
-  <button mat-raised-button color="primary" style="float: left;" matStepperPrevious>Previous</button>
-  <button mat-raised-button color="primary" class="stepper-next" matStepperNext>Next</button>
+  <button mat-raised-button color="primary" type="button" style="float: left;" matStepperPrevious>Previous</button>
+  <button mat-raised-button color="primary" type="button" class="stepper-next" matStepperNext>Next</button>
 </div>

@@ -1,13 +1,13 @@
 <div class="login-container">
   <mat-card>
-    <form [formGroup]="cvService.cvForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="cvService.cvForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <mat-stepper #stepper>
         <mat-step [stepControl]="cvService.personalForm" label="Personal Details">
           <app-personal-details (onInitEvent)="receiveAutoMsgHandler($event)"></app-personal-details>
         </mat-step>
 
         <mat-step [stepControl]="cvService.educationForm" label="Education">
-          <app-education (onInitEvent)="receiveAutoMsgHandler($event)"></app-education>
+          <app-education (onInitEvent)="receiveAutoMsgHandler($event)" ></app-education>
         </mat-step>
 
         <mat-step [stepControl]="cvService.employmentForm" label="Employment">
@@ -23,15 +23,18 @@
         </mat-step>
 
         <mat-step [stepControl]="cvService.profileForm" label="Profile">
-          <app-profile-upload (onInitEvent)="receiveAutoMsgHandler($event)"></app-profile-upload>
+          <app-profile-upload (onInitEvent)="receiveAutoMsgHandler($event)" (outputImage)="receiveImage($event)"></app-profile-upload>
         </mat-step>
 
         <mat-step label="Done">
           <div style="text-align: center" class="personal-container">
             <h2>Done</h2>
-            <p>You are now done. <br> Click create to continue or Click back to edit. </p>
-            <button type="submit" mat-raised-button class="create-btn" color="primary">
-              {{toggleButton === true ? 'Create' : 'Update'}}</button>
+            <p>You are now done. <br> Click reset to reset Form, or Continue to create Resume. </p>
+            <div class="clear-fix">
+              <button type="submit" mat-raised-button class="create-btn" color="primary">
+                {{toggleButton === true ? 'Create' : 'Update'}}</button>
+              <button mat-raised-button color="primary" type="button" class="create-btn" (click)="stepper.reset()">Reset</button>
+            </div>
           </div>
           <div class="clearfix">
             <button type="button" mat-raised-button style="float: left;" matStepperPrevious color="primary">Back</button>

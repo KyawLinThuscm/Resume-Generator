@@ -11,6 +11,7 @@ import { CvServiceService } from 'src/app/sevices/cv-service.service';
 export class CvCreateComponent implements OnInit {
 
   toggleButton: Boolean = true;
+  imgFile: string = "";
 
   constructor(
     public router: Router,
@@ -29,14 +30,22 @@ export class CvCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log("Form Submitted");
-    console.log('form', this.cvService.cvForm);
-    this.router.navigateByUrl("")
+    const formData = new FormData();
+      formData.append('profile', this.cvService.imgFile);
+      formData.append('personal', JSON.stringify(this.cvService.cvForm.controls['personalDetail'].value));
+      formData.append('education', JSON.stringify(this.cvService.cvForm.controls['educationForm'].value['movies']))
+      formData.append('employment', JSON.stringify(this.cvService.cvForm.controls['employmentForm'].value['movies']))
+      formData.append('skills', JSON.stringify(this.cvService.cvForm.controls['skillsForm'].value['movies']))
+      formData.append('languages', JSON.stringify(this.cvService.cvForm.controls['languagesForm'].value['movies']))
+
+      this.cvService.createResume(formData).then((dist) => {
+        console.log(dist)
+        this.router.navigate([""]);
+      })
+      this.cvService.cvForm.reset();
   }
 
   receiveAutoMsgHandler(p: any) {
-    // console.log('p', p);
-    // console.log('cvForm', this.cvService.cvForm);
     if (p.childName === 'personDetail') {
       this.cvService.cvForm.controls['personalDetail'] = p.form
     } else if (p.childName === 'educationForm') {
@@ -50,6 +59,11 @@ export class CvCreateComponent implements OnInit {
     } else if (p.childName === 'profileForm') {
       this.cvService.cvForm.controls['profileForm'] = p.form
     }
+
     // console.log(this.cvService.cvForm)
+  }
+
+  receiveImage(img: any) {
+    this.cvService.imgFile = img;
   }
 }

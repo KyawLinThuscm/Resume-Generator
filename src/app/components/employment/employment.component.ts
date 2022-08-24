@@ -32,7 +32,8 @@ export class EmploymentComponent implements OnInit {
 
   newMovie(): FormGroup {
     return this.fb.group({
-      task:  [''],
+      position:  [''],
+      company: [''],
       startdate:  [''],
       enddate:  [''],
       description: [''],

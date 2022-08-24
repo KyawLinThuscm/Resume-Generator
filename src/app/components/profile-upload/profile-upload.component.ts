@@ -12,6 +12,7 @@ export class ProfileUploadComponent implements OnInit {
   imgFile: any;
 
   @Output() onInitEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() outputImage: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public fb: FormBuilder,
@@ -21,7 +22,7 @@ export class ProfileUploadComponent implements OnInit {
   ngOnInit(): void {
     const data = {
       childName: 'profileForm',
-      form: this.cvService.profileForm
+      form: this.cvService.profileForm,
     }
 
     this.onInitEvent.emit(data);
@@ -31,7 +32,9 @@ export class ProfileUploadComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
+      // console.log(file.name)
       this.imgFile = file;
+      this.outputImage.emit(this.imgFile);
       const reader = new FileReader();
       reader.onload = e => this.profileImage = reader.result;
       reader.readAsDataURL(file);
