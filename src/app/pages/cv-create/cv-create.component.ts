@@ -24,6 +24,7 @@ export class CvCreateComponent implements OnInit {
   msgOnChildCompInit: any;
 
   ngOnInit(): void {
+    this.cvService.resetForm();
     let paramId = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.router.url.indexOf('/edit-cv/') !== -1 && paramId !== undefined) {
       this.toggleButton = false;

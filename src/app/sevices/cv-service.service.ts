@@ -67,6 +67,45 @@ export class CvServiceService {
 
   ngOnInit(): void {
   }
+
+  public resetForm() {
+    this.personalForm = this.fb.group({
+      name: [''],
+      email: [''],
+      phone: [''],
+      dob: [''],
+      nationality: [''],
+      religion: [''],
+      gender: ['Male'],
+      address: [''],
+      description: ['']
+    });
+    this.educationForm = this.fb.group({
+      education: this.fb.array([]),
+    });
+    this.employmentForm = this.fb.group({
+      employment: this.fb.array([]),
+    });
+
+    this.skillsForm = this.fb.group({
+      skills: this.fb.array([]),
+    });
+
+    this.languagesForm = this.fb.group({
+      languages: this.fb.array([]),
+    });
+
+    this.profileForm = this.fb.group({
+      profile: [''],
+    });
+    this.cvForm.controls['personalForm'] = this.personalForm;
+    this.cvForm.controls['educationForm'] = this.educationForm;
+    this.cvForm.controls['employmentForm'] = this.employmentForm;
+    this.cvForm.controls['skillsForm'] = this.skillsForm;
+    this.cvForm.controls['languagesForm'] = this.languagesForm;
+    this.cvForm.controls['profileForm'] = this.profileForm;
+  }
+
   public createResume(payload: any): Promise<any> {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/resume/`, payload));
   }

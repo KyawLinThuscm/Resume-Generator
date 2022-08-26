@@ -19,8 +19,8 @@ export class CvListsComponent implements OnInit {
   actualPaginator?: MatPaginator;
   currentPage = 0;
   totalSize = 0;
-  pageSize = 6;
-  pageOptions = [2, 4, 6];
+  pageSize = 2;
+  pageSizes = [2, 4, 6];
   name: any;
   fromDate: any;
   toDate: any;
@@ -44,20 +44,18 @@ export class CvListsComponent implements OnInit {
   public getResumes() {
     this.cvService.getResume(this.currentPage, this.pageSize).then((dist) => {
       this.resumeLists = dist.data;
-      // console.log(this.currentPage, this.pageSize)
       // console.log(this.resumeLists)
       this.dataSource = new MatTableDataSource<any>(this.resumeLists);
       this.currentPage = 0;
       this.dataSource.paginator = this.paginator;
-      this.totalSize = this.resumeLists.length;
+      this.totalSize = dist.totalSize;
     })
   }
 
   public deleteResume(data: any) {
     this.cvService.deleteResume(data).then((dist) => {
-      this.router.navigate([""]);
+      this.getResumes();
     })
-    // this.getResumes();
   }
 
   public search() {
@@ -71,8 +69,25 @@ export class CvListsComponent implements OnInit {
       // console.log(this.resumeLists)
       this.dataSource = this.resumeLists;
       this.currentPage = 0;
-      this.totalSize = this.resumeLists.length;
+      // this.totalSize = this.resumeLists.length;
+      this.totalSize = dist.totalSize;
       this.dataSource.paginator = this.paginator;
     })
+  }
+
+  public handlePage(e: any) {
+    // this.pageSize = e.pageOptions;
+    // console.log(this.pageSize)
+    console.log(e);
+    this.pageSize = e.pageSize;
+    this.currentPage = e.pageIndex;
+    this.cvService.getResume(this.pageSize, this.currentPage).then((dist) => {
+      this.resumeLists = dist.data;
+      console.log(this.resumeLists)
+      this.dataSource = new MatTableDataSource<any>(this.resumeLists);
+      this.dataSource.paginator = this.paginator;
+      this.totalSize = dist.totalSize;
+    })
+
   }
 }
