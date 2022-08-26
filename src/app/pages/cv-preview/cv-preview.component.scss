@@ -1,8 +1,7 @@
 .download {
-  width: 95%;
+  width: 80%;
   margin: 0 auto;
-  margin-bottom: 30px;
-  padding: 7px 0px 56px 0px;
+  padding-top: 10px;
 
   .down-left {
     float: left;
@@ -23,14 +22,15 @@
   button{
     display: none;
   }
-  @page {
-    margin-top: 5;
-    margin-bottom: 5;
-  }
+  // @page {
+  //   margin-top: 5;
+  //   margin-bottom: 5;
+  // }
 }
 .cv-preview {
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
+  padding-bottom: 50px;
   -webkit-print-color-adjust: exact;
 
   .personal-info {

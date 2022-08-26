@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CvServiceService } from 'src/app/sevices/cv-service.service';
 
 @Component({
@@ -23,14 +23,15 @@ export class EmploymentComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
-    public cvService: CvServiceService
+    public cvService: CvServiceService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
-  get movies(): FormArray {
-    return this.cvService.employmentForm.get("movies") as FormArray
+  get employment(): FormArray {
+    return this.cvService.employmentForm.get("employment") as FormArray
   }
 
-  newMovie(): FormGroup {
+  newEmployment(): FormGroup {
     return this.fb.group({
       position:  [''],
       company: [''],
@@ -41,7 +42,7 @@ export class EmploymentComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const formArr = this.cvService.employmentForm.get('movies') as FormArray;
+    const formArr = this.cvService.employmentForm.get('employment') as FormArray;
     const from = event.previousIndex;
     const to = event.currentIndex;
     this.moveItemInFormArray(formArr, from, to)
@@ -71,14 +72,32 @@ export class EmploymentComponent implements OnInit {
     }
 
     this.onInitEvent.emit(data);
+
+    let paramId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (this.router.url.indexOf('/edit-cv/') !== -1 && paramId !== undefined) {
+
+      this.cvService.findResume(paramId).then((dist) => {
+        dist.data.employment.map((result: any) => {
+          const mvForm = this.fb.group({
+            position: result.position,
+            company: result.company,
+            startdate: result.startdate,
+            enddate: result.enddate,
+            description: result.description,
+          },
+          );
+          this.employment.push(mvForm);
+        })
+      })
+    }
   }
 
   add() {
-    this.movies.push(this.newMovie());
+    this.employment.push(this.newEmployment());
   }
 
   remove(i: number) {
-    this.movies.removeAt(i);
+    this.employment.removeAt(i);
   }
 
   OnDateChange(event: any) {

@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CvServiceService } from 'src/app/sevices/cv-service.service';
 @Component({
   selector: 'app-skills',
@@ -24,15 +24,16 @@ export class SkillsComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
-    public cvService: CvServiceService
+    public cvService: CvServiceService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
 
-  get movies(): FormArray {
-    return this.cvService.skillsForm.get("movies") as FormArray
+  get skills(): FormArray {
+    return this.cvService.skillsForm.get("skills") as FormArray
   }
 
-  newMovie(): FormGroup {
+  newSkill(): FormGroup {
     return this.fb.group({
       skill:  [''],
       level:  ['']
@@ -40,7 +41,7 @@ export class SkillsComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const formArr = this.cvService.skillsForm.get('movies') as FormArray;
+    const formArr = this.cvService.skillsForm.get('skills') as FormArray;
     const from = event.previousIndex;
     const to = event.currentIndex;
     this.moveItemInFormArray(formArr, from, to)
@@ -70,14 +71,30 @@ export class SkillsComponent implements OnInit {
     }
 
     this.onInitEvent.emit(data);
+
+    let paramId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (this.router.url.indexOf('/edit-cv/') !== -1 && paramId !== undefined) {
+
+      this.cvService.findResume(paramId).then((dist) => {
+        console.log(dist.data.skills)
+        dist.data.skills.map((result: any) => {
+          const mvForm = this.fb.group({
+            skill: result.skill,
+            level: result.level,
+          })
+          console.log(mvForm)
+          this.skills.push(mvForm);
+        })
+      })
+    }
   }
 
   add() {
-    this.movies.push(this.newMovie());
+    this.skills.push(this.newSkill());
   }
 
   remove(i: number) {
-    this.movies.removeAt(i);
+    this.skills.removeAt(i);
   }
 
   updateSetting(event: any) {
@@ -96,9 +113,4 @@ export class SkillsComponent implements OnInit {
     //   this.message= "Make A Choice";
     // }
   }
-
-  onSubmit() {
-
-  }
-
 }

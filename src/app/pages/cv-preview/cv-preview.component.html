@@ -1,70 +1,50 @@
+<div class="download clearfix">
+  <button mat-raised-button color="primary" class="down-left" (click)="download()">Download Resume</button>
+  <button mat-raised-button color="primary" class="down-right" [routerLink]="['/']">Back</button>
+</div>
 <div class="cv-preview">
   <div class="personal-details clearfix">
     <div class="personal-info-left">
       <div class="personal-info">
-        <h1>Kyaw Linn Thu</h1>
-        <p>Email  : scm.kyawlinthu@gmail.com</p>
-        <p>Phone  : 09-123456789</p>
-        <p>Date of Birth  : 29th March 1999</p>
-        <p>Nationality: Myanmar</p>
-        <p>Religion: Buddhist</p>
-        <p>Gender: Male</p>
-        <p>Address: No.1, 22nd street, Latha Township, Yangon</p>
+        <h1>{{ name }}</h1>
+        <p>Email  : {{ email }}</p>
+        <p>Phone  : {{ phone }}</p>
+        <p>Date of Birth  : {{ dob | date: 'd MMM yyyy' }}</p>
+        <p>Nationality: {{ nationality }}</p>
+        <p>Religion: {{ religion }}</p>
+        <p>Gender: {{ gender }}</p>
+        <p>Address: {{ address }}</p>
       </div>
     </div>
-    <div class="personal-info-right">
-      <img src="../../../assets/img1.jpg" alt="" class="profile-img">
-    </div>
+      <div *ngIf="profileImage" class="personal-info-right">
+        <img [src]="profileImage" class="profile-img" />
+      </div>
   </div>
   <div class="about-me">
     <h2>About Me</h2>
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni.
+      {{ description }}
     </p>
   </div>
   <div class="education">
     <h2>Education</h2>
-    <div>
-      <h3><b>Education01</b>&nbsp;-&nbsp;</h3>
-      <h5>East Yangon University &nbsp;</h5>
-      <h5>(15th Feb 2022 - 15th August 2022)</h5>
+    <div *ngFor="let edu of education">
+      <h3><b>{{edu.education}}</b>&nbsp;-&nbsp;</h3>
+      <h5>{{edu.school}} &nbsp;</h5>
+      <h5>({{edu.startdate | date: 'd MMM yyyy'}} - {{edu.enddate | date: 'd MMM yyyy'}})</h5>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam.
-      </p>
-    </div>
-    <div>
-      <h3><b>Education02</b>&nbsp;-&nbsp;</h3>
-      <h5>East Yangon University &nbsp;</h5>
-      <h5>(15th Feb 2022 - 15th August 2022)</h5>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam.
-      </p>
-    </div>
-    <div>
-      <h3><b>Education02</b>&nbsp;-&nbsp;</h3>
-      <h5>East Yangon University &nbsp;</h5>
-      <h5>(15th Feb 2022 - 15th August 2022)</h5>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam.
+        {{edu.description}}
       </p>
     </div>
   </div>
   <div class="education">
     <h2>Employment History</h2>
-    <div>
-      <h3><b>Junior Developer</b>&nbsp;-&nbsp;</h3>
-      <h5>Seattle Consulting Myanmar &nbsp;</h5>
-      <h5>(15th Feb 2022 - 15th August 2022)</h5>
+    <div *ngFor="let emp of employment">
+      <h3><b>{{emp.position}}</b>&nbsp;-&nbsp;</h3>
+      <h5>{{emp.company}} &nbsp;</h5>
+      <h5>({{emp.startdate| date: 'd MMM yyyy'}} - {{emp.enddate | date: 'd MMM yyyy'}})</h5>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor.
-      </p>
-    </div>
-    <div>
-      <h3><b>Junior Developer</b>&nbsp;-&nbsp;</h3>
-      <h5>Seattle Consulting Myanmar &nbsp;</h5>
-      <h5>(15th Feb 2022 - 15th August 2022)</h5>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum placeat nulla ratione modi enim saepe nihil asperiores sit quisquam, magni nesciunt molestiae tenetur a adipisci ab ad, voluptatem, laudantium tempora! Lorem ipsum dolor.
+        {{emp.description}}
       </p>
     </div>
   </div>
@@ -73,21 +53,9 @@
       <div class="skills">
         <h2>Skills</h2>
         <ul>
-          <li>
-            <h4>HTML</h4>
-            <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
-          </li>
-          <li>
-            <h4>CSS</h4>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-          </li>
-          <li>
-            <h4>Angular</h4>
-            <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
-          </li>
-          <li>
-            <h4>NodeJS</h4>
-            <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
+          <li *ngFor="let skill of skills">
+            <h4>{{skill.skill}}</h4>
+            <mat-progress-bar mode="determinate" [value]="skill.level"></mat-progress-bar>
           </li>
         </ul>
       </div>
@@ -95,17 +63,9 @@
       <div class="languages">
         <h2>Languages</h2>
         <ul>
-          <li>
-            <h4>English</h4>
-            <mat-progress-bar class="green-progress" mode="determinate" value="50"></mat-progress-bar>
-          </li>
-          <li>
-            <h4>Japanese</h4>
-            <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
-          </li>
-          <li>
-            <h4>Korean</h4>
-            <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
+          <li *ngFor="let language of languages">
+            <h4>{{language.language}}</h4>
+            <mat-progress-bar class="green-progress" mode="determinate" [value]="language.level"></mat-progress-bar>
           </li>
         </ul>
       </div>
@@ -115,7 +75,4 @@
     <p>Copyright @ 2022 Resume Generator</p>
   </div>
 </div>
-<div class="download clearfix">
-  <button mat-raised-button color="primary" class="down-left" (click)="download()">Download Resume</button>
-  <button mat-raised-button color="primary" class="down-right" [routerLink]="['/']">Back</button>
-</div>
+

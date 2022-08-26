@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +16,12 @@ export class CvServiceService {
   languagesForm!: FormGroup;
   profileForm!: FormGroup;
   imgFile: any;
+
   constructor(
     public fb: FormBuilder,
-    public http: HttpClient
+    public http: HttpClient,
+    public router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.cvForm = this.fb.group({
       personalDetail: this.personalForm,
@@ -41,19 +45,19 @@ export class CvServiceService {
     });
 
     this.educationForm = this.fb.group({
-      movies: this.fb.array([]),
+      education: this.fb.array([]),
     });
 
     this.employmentForm = this.fb.group({
-      movies: this.fb.array([]),
+      employment: this.fb.array([]),
     });
 
     this.skillsForm = this.fb.group({
-      movies: this.fb.array([]),
+      skills: this.fb.array([]),
     });
 
     this.languagesForm = this.fb.group({
-      movies: this.fb.array([]),
+      languages: this.fb.array([]),
     });
 
     this.profileForm = this.fb.group({
@@ -61,13 +65,29 @@ export class CvServiceService {
     });
   }
 
+  ngOnInit(): void {
+  }
   public createResume(payload: any): Promise<any> {
-    const headerOptions = new HttpHeaders()
-      .set("Access-Control-Allow-Origin", "*")
-      .set("Access-Control-Allow-Methods", "PUT,GET,POST,DELETE")
-      .set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    const options = { headers: headerOptions };
     return lastValueFrom(this.http.post(`${environment.apiUrl}/resume/`, payload));
   }
 
+  public getResume(pageIndex: number, pageSize: number): Promise<any> {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/resume?page=${pageIndex}&rpp=${pageSize}`));
+  }
+
+  public findResume(resumeId: any): Promise<any> {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/resume/` + resumeId));
+  }
+
+  public updateResume(payload: any, resumeId: any): Promise<any> {
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/resume/` + resumeId, payload));
+  }
+
+  public deleteResume(resumeId: any): Promise<any> {
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/resume/` + resumeId));
+  }
+
+  public searchResume(pageIndex: number, pageSize: number, payload: any): Promise<any> {
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/resume/search?page=${pageIndex}&rpp=${pageSize}`, payload));
+  }
 }

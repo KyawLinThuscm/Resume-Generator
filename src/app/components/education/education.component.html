@@ -1,8 +1,8 @@
 <div [formGroup]="cvService.educationForm" class="personal-container">
   <h2>Education</h2>
 
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" formArrayName="movies">
-    <div class="example-box" *ngFor="let movie of movies.controls; let i=index" cdkDrag>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" formArrayName="education">
+    <div class="example-box" *ngFor="let edu of education.controls; let i=index" cdkDrag>
       <mat-card>
         <div [formGroupName]="i">
           <mat-form-field class="education-field" appearance="outline">

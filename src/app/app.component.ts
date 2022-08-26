@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        if (this.router.url === '/preview/undefined' ) {
+        if (this.router.url === '/preview' ) {
           this.showHeader = false;
         } else {
           this.showHeader = true;

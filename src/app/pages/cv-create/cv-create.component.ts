@@ -12,6 +12,7 @@ export class CvCreateComponent implements OnInit {
 
   toggleButton: Boolean = true;
   imgFile: string = "";
+  resumeData: any;
 
   constructor(
     public router: Router,
@@ -23,26 +24,45 @@ export class CvCreateComponent implements OnInit {
   msgOnChildCompInit: any;
 
   ngOnInit(): void {
-    let paramId =this.activatedRoute.snapshot.paramMap.get("id");
+    let paramId = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.router.url.indexOf('/edit-cv/') !== -1 && paramId !== undefined) {
       this.toggleButton = false;
     }
   }
 
   onSubmit() {
-    const formData = new FormData();
+    if(this.toggleButton == true) {
+      const formData = new FormData();
       formData.append('profile', this.cvService.imgFile);
       formData.append('personal', JSON.stringify(this.cvService.cvForm.controls['personalDetail'].value));
-      formData.append('education', JSON.stringify(this.cvService.cvForm.controls['educationForm'].value['movies']))
-      formData.append('employment', JSON.stringify(this.cvService.cvForm.controls['employmentForm'].value['movies']))
-      formData.append('skills', JSON.stringify(this.cvService.cvForm.controls['skillsForm'].value['movies']))
-      formData.append('languages', JSON.stringify(this.cvService.cvForm.controls['languagesForm'].value['movies']))
+      formData.append('education', JSON.stringify(this.cvService.cvForm.controls['educationForm'].value['education']))
+      formData.append('employment', JSON.stringify(this.cvService.cvForm.controls['employmentForm'].value['employment']))
+      formData.append('skills', JSON.stringify(this.cvService.cvForm.controls['skillsForm'].value['skills']))
+      formData.append('languages', JSON.stringify(this.cvService.cvForm.controls['languagesForm'].value['languages']))
 
       this.cvService.createResume(formData).then((dist) => {
+        this.router.navigate([""]);
+      })
+      this.cvService.cvForm.reset();
+    }
+    else if(this.toggleButton == false) {
+      console.log('updated')
+      const resumeId: string = this.activatedRoute.snapshot.params['id'];
+
+      const formData = new FormData();
+      this.cvService.imgFile ? formData.append('profile', this.cvService.imgFile) : "";
+      formData.append('personal', JSON.stringify(this.cvService.cvForm.controls['personalDetail'].value));
+      formData.append('education', JSON.stringify(this.cvService.cvForm.controls['educationForm'].value['education']))
+      formData.append('employment', JSON.stringify(this.cvService.cvForm.controls['employmentForm'].value['employment']))
+      formData.append('skills', JSON.stringify(this.cvService.cvForm.controls['skillsForm'].value['skills']))
+      formData.append('languages', JSON.stringify(this.cvService.cvForm.controls['languagesForm'].value['languages']))
+
+      this.cvService.updateResume(formData, resumeId).then((dist) => {
         console.log(dist)
         this.router.navigate([""]);
       })
       this.cvService.cvForm.reset();
+    }
   }
 
   receiveAutoMsgHandler(p: any) {
