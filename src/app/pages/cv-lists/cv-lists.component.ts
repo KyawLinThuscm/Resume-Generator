@@ -26,25 +26,23 @@ export class CvListsComponent implements OnInit {
   toDate: any;
   resumeLists: any;
   resumeArr: any = [];
+  public console = console;
+  submitted: Boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
     public router: Router,
-    public cvService: CvServiceService
+    public cvService: CvServiceService,
   ) { }
-
-
 
   ngOnInit(): void {
     this.getResumes();
   }
 
-
   public getResumes() {
     this.cvService.getResume(this.currentPage, this.pageSize).then((dist) => {
       this.resumeLists = dist.data;
-      // console.log(this.resumeLists)
       this.dataSource = new MatTableDataSource<any>(this.resumeLists);
       this.currentPage = 0;
       this.dataSource.paginator = this.paginator;
@@ -58,36 +56,32 @@ export class CvListsComponent implements OnInit {
     })
   }
 
-  public search() {
+  public search(currentPage: any = null, pageSize: any = null) {
     let payload: any = {};
     this.name ? payload['name'] = this.name : '';
     this.fromDate ? payload['fromDate'] = moment(this.fromDate).format('YYYY/MM/DD') : '';
     this.toDate ? payload['toDate'] = moment(this.toDate).format('YYYY/MM/DD') : '';
-
-    this.cvService.searchResume(this.currentPage, this.pageSize, payload).then((dist) => {
-      this.resumeLists = dist.data;
-      // console.log(this.resumeLists)
-      this.dataSource = this.resumeLists;
-      this.currentPage = 0;
-      // this.totalSize = this.resumeLists.length;
-      this.totalSize = dist.totalSize;
-      this.dataSource.paginator = this.paginator;
-    })
+    currentPage = currentPage ? currentPage : this.currentPage;
+    pageSize = pageSize ? pageSize : this.pageSize;
+    if (payload) {
+      this.cvService.searchResume(currentPage, pageSize, payload).then((dist) => {
+        this.resumeLists = dist.data;
+        this.dataSource = new MatTableDataSource<any>(this.resumeLists);
+        this.totalSize = dist.totalSize;
+      })
+    } else {
+      this.getResumes();
+    }
   }
 
   public handlePage(e: any) {
-    // this.pageSize = e.pageOptions;
-    // console.log(this.pageSize)
-    console.log(e);
-    this.pageSize = e.pageSize;
-    this.currentPage = e.pageIndex;
-    this.cvService.getResume(this.pageSize, this.currentPage).then((dist) => {
-      this.resumeLists = dist.data;
-      console.log(this.resumeLists)
-      this.dataSource = new MatTableDataSource<any>(this.resumeLists);
-      this.dataSource.paginator = this.paginator;
-      this.totalSize = dist.totalSize;
-    })
-
+    if (this.name || this.fromDate || this.toDate) {
+      this.search(e.pageIndex, e.pageSize);
+    } else {
+      this.cvService.getResume(e.pageIndex, e.pageSize).then((dist) => {
+        this.resumeLists = dist.data;
+        this.dataSource = new MatTableDataSource<any>(this.resumeLists);
+      })
+    }
   }
 }

@@ -46,7 +46,8 @@ export class CvPreviewComponent implements OnInit {
         this.nationality = this.resumeData.personal.nationality;
         this.religion = this.resumeData.personal.religion;
         this.description = this.resumeData.personal.description;
-        this.profileImage = 'http://localhost:5000/' + this.resumeData.profile;
+        this.profileImage = this.resumeData.profile ? 'http://localhost:5000/' + this.resumeData.profile : "https://material.angular.io/assets/img/examples/shiba1.jpg";
+
          this.resumeData.education.map((result: any) => {
           let res = {
             education: result.education,
